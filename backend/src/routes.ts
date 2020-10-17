@@ -8,8 +8,7 @@ const routes = Router();
 const upload = multer(uploadConfig);
 //metodos padroes do controller: index(ou listar), show, create, update, delete
 
-routes.post('/orphanages', upload.array('images'), OrphanagesController.create);
 routes.get('/orphanages', OrphanagesController.index);
 routes.get('/orphanages/:id', OrphanagesController.show);
-
+routes.post('/orphanages', upload.array('images'), OrphanagesController.create);
 export default routes;

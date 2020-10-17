@@ -20,40 +20,36 @@ export default{
   
     async create (request: Request, response: Response) {
         const { 
-            name, 
-            latitude, 
-            longitude,
-            about, 
-            instructions,
-            opening_hours,
-            open_on_weekends
-           } = request.body;
+          name,
+          latitude,
+          longitude,
+          about,
+          instructions,
+          opening_hours,
+          open_on_weekends
+        } = request.body;
            
            const orphanagesRepository = getRepository(Orphanage)
         
-           const requestImages = request.files as Express.Multer.File[];
-           const images = requestImages.map(image => {
+          //  const requestImages = request.files as Express.Multer.File[];
+          //  const images = requestImages.map(image => {
              
-             return { path: image.filename }
-           })
+          //    return { path: image.filename }
+          //  })
 
-           const orphanage = orphanagesRepository.create({
-            name, 
+           const orphanage = {
+            name,
             latitude,
             longitude,
             about,
             instructions,
             opening_hours,
-            open_on_weekends,
-            images
-           });
+            open_on_weekends: open_on_weekends === 'true',
+            // images,
+          };
         
           await orphanagesRepository.save(orphanage);
-        console.log('MINHA RESPOPSTA:', response)
-        //    console.log('MINHA RESPOSTA: ', response.body);
-           return response.status(201).json(orphanage);
+          return response.status(201).json(orphanage);
 
     }
-
-
-}
+};
